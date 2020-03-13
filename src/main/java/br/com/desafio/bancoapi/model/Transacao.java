@@ -3,15 +3,33 @@ package br.com.desafio.bancoapi.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Digits;
+
 import br.com.desafio.bancoapi.enums.TipoTransacao;
 
+@Entity
 public class Transacao {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String codigo;
+	@Column(name = "data_hora", columnDefinition = "TIMESTAMP")
 	private LocalDateTime dataHora;
+	@Digits(integer = 12, fraction = 6)
 	private BigDecimal valor;
+	@Enumerated
 	private TipoTransacao tipoTransacao;
+	@ManyToOne
 	private Conta contaOrigem;
+	@ManyToOne
 	private Conta contaDestino;
 
 	public Transacao() {

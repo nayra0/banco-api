@@ -2,10 +2,21 @@ package br.com.desafio.bancoapi.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Banco {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String nome;
 	private String codigo;
+	@OneToMany(mappedBy = "banco")
 	private List<Agencia> agencias;
 
 	public Banco() {

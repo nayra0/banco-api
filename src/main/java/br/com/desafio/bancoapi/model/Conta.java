@@ -3,14 +3,33 @@ package br.com.desafio.bancoapi.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.Digits;
+
+@Entity
 public class Conta {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String numero;
 	private String digito;
+	@Digits(integer = 12, fraction = 6)
 	private BigDecimal saldo;
 	private boolean ativa;
+	@OneToOne
+	@JoinColumn(name = "titular_id")
 	private Cliente titular;
+	@OneToOne
+	@JoinColumn(name = "agencia_id")
 	private Agencia agencia;
+	@OneToMany
 	private List<Transacao> transacoes;
 
 	public Conta() {
