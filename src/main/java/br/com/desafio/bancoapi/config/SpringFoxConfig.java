@@ -29,7 +29,8 @@ public class SpringFoxConfig {
 
   private ApiInfo metaInfo() {
     ApiInfo apiInfo = new ApiInfo("Banco API REST", "API criada para o desafio Infoway", "1.0",
-        "Termos de Serviço", new Contact("Nayra Oliveira", "url", "nayrabiaoliveira@gmail.com"),
+        "Termos de Serviço",
+        new Contact("Nayra Oliveira", "https://github.com/nayra0", "nayrabiaoliveira@gmail.com"),
         "License of API", "API license URL", Collections.emptyList());
     return apiInfo;
   }
