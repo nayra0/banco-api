@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Banco {
 
@@ -17,6 +19,7 @@ public class Banco {
 	private String nome;
 	private String codigo;
 	@OneToMany(mappedBy = "banco")
+	@JsonBackReference
 	private List<Agencia> agencias;
 
 	public Banco() {
@@ -46,13 +49,19 @@ public class Banco {
 		this.agencias = agencias;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((agencias == null) ? 0 : agencias.hashCode());
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -65,20 +74,10 @@ public class Banco {
 		if (getClass() != obj.getClass())
 			return false;
 		Banco other = (Banco) obj;
-		if (agencias == null) {
-			if (other.agencias != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!agencias.equals(other.agencias))
-			return false;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

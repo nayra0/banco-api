@@ -12,6 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Digits;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Conta {
 
@@ -25,11 +28,13 @@ public class Conta {
 	private boolean ativa;
 	@OneToOne
 	@JoinColumn(name = "titular_id")
+	@JsonManagedReference
 	private Cliente titular;
 	@OneToOne
 	@JoinColumn(name = "agencia_id")
 	private Agencia agencia;
 	@OneToMany
+	@JsonBackReference
 	private List<Transacao> transacoes;
 
 	public Conta() {
@@ -91,17 +96,19 @@ public class Conta {
 		this.transacoes = transacoes;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((agencia == null) ? 0 : agencia.hashCode());
-		result = prime * result + (ativa ? 1231 : 1237);
-		result = prime * result + ((digito == null) ? 0 : digito.hashCode());
-		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
-		result = prime * result + ((saldo == null) ? 0 : saldo.hashCode());
-		result = prime * result + ((titular == null) ? 0 : titular.hashCode());
-		result = prime * result + ((transacoes == null) ? 0 : transacoes.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -114,37 +121,10 @@ public class Conta {
 		if (getClass() != obj.getClass())
 			return false;
 		Conta other = (Conta) obj;
-		if (agencia == null) {
-			if (other.agencia != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!agencia.equals(other.agencia))
-			return false;
-		if (ativa != other.ativa)
-			return false;
-		if (digito == null) {
-			if (other.digito != null)
-				return false;
-		} else if (!digito.equals(other.digito))
-			return false;
-		if (numero == null) {
-			if (other.numero != null)
-				return false;
-		} else if (!numero.equals(other.numero))
-			return false;
-		if (saldo == null) {
-			if (other.saldo != null)
-				return false;
-		} else if (!saldo.equals(other.saldo))
-			return false;
-		if (titular == null) {
-			if (other.titular != null)
-				return false;
-		} else if (!titular.equals(other.titular))
-			return false;
-		if (transacoes == null) {
-			if (other.transacoes != null)
-				return false;
-		} else if (!transacoes.equals(other.transacoes))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}

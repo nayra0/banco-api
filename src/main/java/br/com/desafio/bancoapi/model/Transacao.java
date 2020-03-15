@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Transacao {
 	private LocalDateTime dataHora;
 	@Digits(integer = 12, fraction = 6)
 	private BigDecimal valor;
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private TipoTransacao tipoTransacao;
 	@ManyToOne
 	private Conta contaOrigem;
@@ -83,16 +84,19 @@ public class Transacao {
 		this.contaDestino = contaDestino;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((contaDestino == null) ? 0 : contaDestino.hashCode());
-		result = prime * result + ((contaOrigem == null) ? 0 : contaOrigem.hashCode());
-		result = prime * result + ((dataHora == null) ? 0 : dataHora.hashCode());
-		result = prime * result + ((tipoTransacao == null) ? 0 : tipoTransacao.hashCode());
-		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -105,32 +109,10 @@ public class Transacao {
 		if (getClass() != obj.getClass())
 			return false;
 		Transacao other = (Transacao) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (contaDestino == null) {
-			if (other.contaDestino != null)
-				return false;
-		} else if (!contaDestino.equals(other.contaDestino))
-			return false;
-		if (contaOrigem == null) {
-			if (other.contaOrigem != null)
-				return false;
-		} else if (!contaOrigem.equals(other.contaOrigem))
-			return false;
-		if (dataHora == null) {
-			if (other.dataHora != null)
-				return false;
-		} else if (!dataHora.equals(other.dataHora))
-			return false;
-		if (tipoTransacao != other.tipoTransacao)
-			return false;
-		if (valor == null) {
-			if (other.valor != null)
-				return false;
-		} else if (!valor.equals(other.valor))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
