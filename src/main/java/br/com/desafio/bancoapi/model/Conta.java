@@ -19,118 +19,118 @@ import com.sun.istack.NotNull;
 @Entity
 public class Conta {
 
-	@Id
-	@SequenceGenerator(name = "conta_seq", sequenceName = "conta_seq", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(generator = "conta_seq")
-	private Long id;
-	@NotEmpty
-	private String numero;
-	private String digito;
-	@Digits(integer = 12, fraction = 6)
-	private BigDecimal saldo;
-	private boolean ativa;
-	@OneToOne
-	@JoinColumn(name = "titular_id")
-	@JsonBackReference
-	@NotNull
-	private Cliente titular;
-	@OneToOne
-	@JoinColumn(name = "agencia_id")
-	@NotNull
-	private Agencia agencia;
-	@OneToMany
-	private List<Transacao> transacoes;
+  @Id
+  @SequenceGenerator(name = "conta_seq", sequenceName = "conta_seq", initialValue = 1,
+      allocationSize = 1)
+  @GeneratedValue(generator = "conta_seq")
+  private Long id;
+  @NotEmpty
+  private String numero;
+  private String digito;
+  @Digits(integer = 12, fraction = 6)
+  private BigDecimal saldo;
+  private boolean ativa;
+  @OneToOne
+  @JoinColumn(name = "titular_id")
+  @JsonBackReference
+  @NotNull
+  private Cliente titular;
+  @OneToOne
+  @JoinColumn(name = "agencia_id")
+  @NotNull
+  private Agencia agencia;
+  @OneToMany
+  private List<Transacao> transacoes;
 
-	public Conta() {
-	}
+  public Conta() {}
 
-	public String getNumero() {
-		return numero;
-	}
+  public String getNumero() {
+    return numero;
+  }
 
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
+  public void setNumero(String numero) {
+    this.numero = numero;
+  }
 
-	public String getDigito() {
-		return digito;
-	}
+  public String getDigito() {
+    return digito;
+  }
 
-	public void setDigito(String digito) {
-		this.digito = digito;
-	}
+  public void setDigito(String digito) {
+    this.digito = digito;
+  }
 
-	public BigDecimal getSaldo() {
-		return saldo;
-	}
+  public BigDecimal getSaldo() {
+    return saldo;
+  }
 
-	public void setSaldo(BigDecimal saldo) {
-		this.saldo = saldo;
-	}
+  public void setSaldo(BigDecimal saldo) {
+    this.saldo = saldo;
+  }
 
-	public boolean isAtiva() {
-		return ativa;
-	}
+  public boolean isAtiva() {
+    return ativa;
+  }
 
-	public void setAtiva(boolean ativa) {
-		this.ativa = ativa;
-	}
+  public void setAtiva(boolean ativa) {
+    this.ativa = ativa;
+  }
 
-	public Cliente getTitular() {
-		return titular;
-	}
+  public Cliente getTitular() {
+    return titular;
+  }
 
-	public void setTitular(Cliente titular) {
-		this.titular = titular;
-	}
+  public void setTitular(Cliente titular) {
+    this.titular = titular;
+  }
 
-	public Agencia getAgencia() {
-		return agencia;
-	}
+  public Agencia getAgencia() {
+    return agencia;
+  }
 
-	public void setAgencia(Agencia agencia) {
-		this.agencia = agencia;
-	}
+  public void setAgencia(Agencia agencia) {
+    this.agencia = agencia;
+  }
 
-	public List<Transacao> getTransacoes() {
-		return transacoes;
-	}
+  public List<Transacao> getTransacoes() {
+    return transacoes;
+  }
 
-	public void setTransacoes(List<Transacao> transacoes) {
-		this.transacoes = transacoes;
-	}
+  public void setTransacoes(List<Transacao> transacoes) {
+    this.transacoes = transacoes;
+  }
 
-	public Long getId() {
-		return id;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    return result;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Conta other = (Conta) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Conta other = (Conta) obj;
+    if (id == null) {
+      if (other.id != null)
+        return false;
+    } else if (!id.equals(other.id))
+      return false;
+    return true;
+  }
 
 }

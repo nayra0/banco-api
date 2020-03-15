@@ -14,78 +14,79 @@ import com.sun.istack.NotNull;
 @Entity
 public class Agencia {
 
-	@Id
-	@SequenceGenerator(name = "agencia_seq", sequenceName = "agencia_seq", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(generator = "agencia_seq")
-	private Long id;
-	@NotEmpty
-	private String codigo;
-	private String digito;
-	@ManyToOne
-	@JoinColumn(name = "banco_id")
-	@JsonBackReference
-	@NotNull
-	private Banco banco;
+  @Id
+  @SequenceGenerator(name = "agencia_seq", sequenceName = "agencia_seq", initialValue = 1,
+      allocationSize = 1)
+  @GeneratedValue(generator = "agencia_seq")
+  private Long id;
+  @NotEmpty
+  private String codigo;
+  private String digito;
+  @ManyToOne
+  @JoinColumn(name = "banco_id")
+  @JsonBackReference
+  @NotNull
+  private Banco banco;
 
-	public Agencia() {
+  public Agencia() {
 
-	}
+  }
 
-	public String getCodigo() {
-		return codigo;
-	}
+  public String getCodigo() {
+    return codigo;
+  }
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
+  public void setCodigo(String codigo) {
+    this.codigo = codigo;
+  }
 
-	public String getDigito() {
-		return digito;
-	}
+  public String getDigito() {
+    return digito;
+  }
 
-	public void setDigito(String digito) {
-		this.digito = digito;
-	}
+  public void setDigito(String digito) {
+    this.digito = digito;
+  }
 
-	public Banco getBanco() {
-		return banco;
-	}
+  public Banco getBanco() {
+    return banco;
+  }
 
-	public void setBanco(Banco banco) {
-		this.banco = banco;
-	}
+  public void setBanco(Banco banco) {
+    this.banco = banco;
+  }
 
-	public Long getId() {
-		return id;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    return result;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Agencia other = (Agencia) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Agencia other = (Agencia) obj;
+    if (id == null) {
+      if (other.id != null)
+        return false;
+    } else if (!id.equals(other.id))
+      return false;
+    return true;
+  }
 
 }
