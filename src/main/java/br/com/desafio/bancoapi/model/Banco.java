@@ -4,22 +4,23 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Banco {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "banco_seq", sequenceName = "banco_seq", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(generator = "banco_seq")
 	private Long id;
 	private String nome;
 	private String codigo;
 	@OneToMany(mappedBy = "banco")
-	@JsonBackReference
+	@JsonManagedReference
 	private List<Agencia> agencias;
 
 	public Banco() {

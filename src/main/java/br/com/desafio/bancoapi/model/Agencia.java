@@ -2,24 +2,25 @@ package br.com.desafio.bancoapi.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Agencia {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "agencia_seq", sequenceName = "agencia_seq", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(generator = "agencia_seq")
 	private Long id;
 	private String codigo;
 	private String digito;
 	@ManyToOne
 	@JoinColumn(name = "banco_id")
-	@JsonManagedReference
+	@JsonBackReference
 	private Banco banco;
 
 	public Agencia() {

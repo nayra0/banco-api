@@ -5,21 +5,21 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Digits;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Conta {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "conta_seq", sequenceName = "conta_seq", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(generator = "conta_seq")
 	private Long id;
 	private String numero;
 	private String digito;
@@ -28,13 +28,12 @@ public class Conta {
 	private boolean ativa;
 	@OneToOne
 	@JoinColumn(name = "titular_id")
-	@JsonManagedReference
+	@JsonBackReference
 	private Cliente titular;
 	@OneToOne
 	@JoinColumn(name = "agencia_id")
 	private Agencia agencia;
 	@OneToMany
-	@JsonBackReference
 	private List<Transacao> transacoes;
 
 	public Conta() {

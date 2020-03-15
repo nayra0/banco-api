@@ -4,22 +4,23 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "cliente_seq", sequenceName = "cliente_seq", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(generator = "cliente_seq")
 	private Long id;
 	private String nome;
 	private String cpf;
 	@OneToMany(mappedBy = "titular")
-	@JsonBackReference
+	@JsonManagedReference
 	private List<Conta> contas;
 
 	public Cliente() {
