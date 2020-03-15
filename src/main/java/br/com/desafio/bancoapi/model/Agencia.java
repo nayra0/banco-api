@@ -6,8 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sun.istack.NotNull;
 
 @Entity
 public class Agencia {
@@ -16,11 +18,13 @@ public class Agencia {
 	@SequenceGenerator(name = "agencia_seq", sequenceName = "agencia_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(generator = "agencia_seq")
 	private Long id;
+	@NotEmpty
 	private String codigo;
 	private String digito;
 	@ManyToOne
 	@JoinColumn(name = "banco_id")
 	@JsonBackReference
+	@NotNull
 	private Banco banco;
 
 	public Agencia() {

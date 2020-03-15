@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+
+import com.sun.istack.NotNull;
 
 import br.com.desafio.bancoapi.enums.TipoTransacao;
 
@@ -22,12 +25,16 @@ public class Transacao {
 	@SequenceGenerator(name = "transacao_seq", sequenceName = "transacao_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(generator = "transacao_seq")
 	private Long id;
+	@NotEmpty
 	private String codigo;
 	@Column(name = "data_hora", columnDefinition = "TIMESTAMP")
+	@NotNull
 	private LocalDateTime dataHora;
 	@Digits(integer = 12, fraction = 6)
+	@NotNull
 	private BigDecimal valor;
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private TipoTransacao tipoTransacao;
 	@ManyToOne
 	private Conta contaOrigem;

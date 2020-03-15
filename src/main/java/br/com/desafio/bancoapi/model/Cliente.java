@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -17,7 +20,9 @@ public class Cliente {
 	@SequenceGenerator(name = "cliente_seq", sequenceName = "cliente_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(generator = "cliente_seq")
 	private Long id;
+	@NotEmpty
 	private String nome;
+	@Size(min = 11)
 	private String cpf;
 	@OneToMany(mappedBy = "titular")
 	@JsonManagedReference

@@ -11,8 +11,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sun.istack.NotNull;
 
 @Entity
 public class Conta {
@@ -21,6 +23,7 @@ public class Conta {
 	@SequenceGenerator(name = "conta_seq", sequenceName = "conta_seq", initialValue = 1, allocationSize = 1)
 	@GeneratedValue(generator = "conta_seq")
 	private Long id;
+	@NotEmpty
 	private String numero;
 	private String digito;
 	@Digits(integer = 12, fraction = 6)
@@ -29,9 +32,11 @@ public class Conta {
 	@OneToOne
 	@JoinColumn(name = "titular_id")
 	@JsonBackReference
+	@NotNull
 	private Cliente titular;
 	@OneToOne
 	@JoinColumn(name = "agencia_id")
+	@NotNull
 	private Agencia agencia;
 	@OneToMany
 	private List<Transacao> transacoes;
