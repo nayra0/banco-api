@@ -39,7 +39,7 @@ public class BancoResource {
   private ApplicationEventPublisher publisher;
 
   @GetMapping
-  @ApiOperation(value = "Retorna uma lista de bancos")
+  @ApiOperation(value = "Retorna a lista de bancos")
   public List<Banco> listar() {
     return bancoRepository.findAll();
   }
@@ -56,7 +56,7 @@ public class BancoResource {
 
   @GetMapping("/{id}")
   @ApiOperation(value = "Retorna um banco")
-  public ResponseEntity<Banco> buscarPeloCodigo(@PathVariable Long id) {
+  public ResponseEntity<Banco> buscarPeloId(@PathVariable Long id) {
     return bancoRepository.findById(id).map(banco -> ResponseEntity.ok(banco))
         .orElse(ResponseEntity.notFound().build());
   }

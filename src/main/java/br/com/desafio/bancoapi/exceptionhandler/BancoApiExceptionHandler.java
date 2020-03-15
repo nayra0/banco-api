@@ -68,7 +68,7 @@ public class BancoApiExceptionHandler extends ResponseEntityExceptionHandler {
     return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
   }
 
-  public List<Erro> criarListaErro(BindingResult bindingResult) {
+  private List<Erro> criarListaErro(BindingResult bindingResult) {
     List<Erro> erros = new ArrayList<Erro>();
 
     for (FieldError fieldError : bindingResult.getFieldErrors()) {

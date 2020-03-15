@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.desafio.bancoapi.event.RecursoCriadoEvent;
 import br.com.desafio.bancoapi.model.Cliente;
 import br.com.desafio.bancoapi.repository.ClienteRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/clientes")
+@Api(value = "API REST Clientes")
 public class ClienteResource {
 
   @Autowired
@@ -34,11 +39,13 @@ public class ClienteResource {
   private ApplicationEventPublisher publisher;
 
   @GetMapping
+  @ApiOperation(value = "Retorna a lista de clientes")
   private List<Cliente> listar() {
     return clienteRepository.findAll();
   }
 
   @PostMapping
+  @ApiOperation(value = "Salva um cliente")
   public ResponseEntity<Cliente> criar(@Valid @RequestBody Cliente cliente,
       HttpServletResponse response) {
     Cliente novoCliente = clienteRepository.save(cliente);
@@ -48,18 +55,21 @@ public class ClienteResource {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Cliente> buscarPeloCodigo(@PathVariable Long id) {
+  @ApiOperation(value = "Retorna um cliente")
+  public ResponseEntity<Cliente> buscarPeloId(@PathVariable Long id) {
     return clienteRepository.findById(id).map(cliente -> ResponseEntity.ok(cliente))
         .orElse(ResponseEntity.notFound().build());
   }
 
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ApiOperation(value = "Deleta um cliente")
   public void remover(@PathVariable Long id) {
     clienteRepository.deleteById(id);
   }
 
   @PutMapping("/{id}")
+  @ApiOperation(value = "Atualiza um cliente")
   public ResponseEntity<Cliente> atualizar(@PathVariable Long id,
       @Valid @RequestBody Cliente cliente) {
     Cliente clienteSalvo = clienteRepository.save(cliente);
