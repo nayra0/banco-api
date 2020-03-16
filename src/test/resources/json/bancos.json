@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "nome": "Banco de Teste",
+        "codigo": "1"
+    },
+    {
+        "id": 2,
+        "nome": "Banco de Teste 2",
+        "codigo": "2"
+    }
+]
