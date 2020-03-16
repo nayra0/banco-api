@@ -1,17 +1,11 @@
 package br.com.desafio.bancoapi.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente {
@@ -25,9 +19,6 @@ public class Cliente {
   private String nome;
   @Size(min = 11)
   private String cpf;
-  @OneToMany(mappedBy = "titular")
-  @JsonManagedReference
-  private List<Conta> contas;
 
   public Cliente() {}
 
@@ -47,13 +38,6 @@ public class Cliente {
     this.cpf = cpf;
   }
 
-  public List<Conta> getContas() {
-    return contas;
-  }
-
-  public void setContas(List<Conta> contas) {
-    this.contas = contas;
-  }
 
   public Long getId() {
     return id;

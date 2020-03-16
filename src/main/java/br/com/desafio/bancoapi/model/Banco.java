@@ -1,15 +1,10 @@
 package br.com.desafio.bancoapi.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Banco {
@@ -23,9 +18,6 @@ public class Banco {
   private String nome;
   @NotEmpty
   private String codigo;
-  @OneToMany(mappedBy = "banco")
-  @JsonManagedReference
-  private List<Agencia> agencias;
 
   public Banco() {}
 
@@ -43,14 +35,6 @@ public class Banco {
 
   public void setCodigo(String codigo) {
     this.codigo = codigo;
-  }
-
-  public List<Agencia> getAgencias() {
-    return agencias;
-  }
-
-  public void setAgencias(List<Agencia> agencias) {
-    this.agencias = agencias;
   }
 
   public Long getId() {
