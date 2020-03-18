@@ -7,12 +7,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
+import br.com.desafio.bancoapi.interfaces.Entidade;
 
 @Entity
-public class Agencia {
+public class Agencia implements Entidade {
 
   @Id
   @SequenceGenerator(name = "agencia_seq", sequenceName = "agencia_seq", initialValue = 1,
@@ -22,10 +21,9 @@ public class Agencia {
   @NotEmpty
   private String codigo;
   private String digito;
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "banco_id")
-  @JsonBackReference
-  @NotNull
   private Banco banco;
 
   public Agencia() {

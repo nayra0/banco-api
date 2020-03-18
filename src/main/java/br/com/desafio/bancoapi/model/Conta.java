@@ -2,7 +2,6 @@ package br.com.desafio.bancoapi.model;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,12 +11,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
-
+import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.sun.istack.NotNull;
+import br.com.desafio.bancoapi.interfaces.Entidade;
 
 @Entity
-public class Conta {
+public class Conta implements Entidade{
 
   @Id
   @SequenceGenerator(name = "conta_seq", sequenceName = "conta_seq", initialValue = 1,
@@ -32,7 +31,6 @@ public class Conta {
   private boolean ativa;
   @OneToOne
   @JoinColumn(name = "titular_id")
-  @JsonBackReference
   @NotNull
   private Cliente titular;
   @OneToOne
@@ -40,6 +38,7 @@ public class Conta {
   @NotNull
   private Agencia agencia;
   @OneToMany
+  @JsonBackReference
   private List<Transacao> transacoes;
 
   public Conta() {}

@@ -6,9 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import br.com.desafio.bancoapi.interfaces.Entidade;
 
 @Entity
-public class Cliente {
+public class Cliente implements Entidade{
 
   @Id
   @SequenceGenerator(name = "cliente_seq", sequenceName = "cliente_seq", initialValue = 1,

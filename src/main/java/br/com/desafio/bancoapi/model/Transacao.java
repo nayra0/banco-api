@@ -2,7 +2,6 @@ package br.com.desafio.bancoapi.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,24 +11,22 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotEmpty;
-
-import com.sun.istack.NotNull;
-
+import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import br.com.desafio.bancoapi.enums.TipoTransacao;
+import br.com.desafio.bancoapi.interfaces.Entidade;
 
 @Entity
-public class Transacao {
+public class Transacao implements Entidade {
 
   @Id
   @SequenceGenerator(name = "transacao_seq", sequenceName = "transacao_seq", initialValue = 1,
       allocationSize = 1)
   @GeneratedValue(generator = "transacao_seq")
   private Long id;
-  @NotEmpty
-  private String codigo;
   @Column(name = "data_hora", columnDefinition = "TIMESTAMP")
   @NotNull
+  @JsonFormat(pattern =  "dd/MM/yyyy HH:mm:ss")
   private LocalDateTime dataHora;
   @Digits(integer = 12, fraction = 6)
   @NotNull
@@ -43,14 +40,6 @@ public class Transacao {
   private Conta contaDestino;
 
   public Transacao() {}
-
-  public String getCodigo() {
-    return codigo;
-  }
-
-  public void setCodigo(String codigo) {
-    this.codigo = codigo;
-  }
 
   public LocalDateTime getDataHora() {
     return dataHora;
