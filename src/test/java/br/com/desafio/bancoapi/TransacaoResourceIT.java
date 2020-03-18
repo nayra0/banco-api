@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import br.com.desafio.bancoapi.enums.TipoTransacao;
 import br.com.desafio.bancoapi.model.Agencia;
 import br.com.desafio.bancoapi.model.Banco;
 import br.com.desafio.bancoapi.model.Cliente;
@@ -18,10 +19,14 @@ import br.com.desafio.bancoapi.repository.AgenciaRepository;
 import br.com.desafio.bancoapi.repository.BancoRepository;
 import br.com.desafio.bancoapi.repository.ClienteRepository;
 import br.com.desafio.bancoapi.repository.ContaRepository;
+import br.com.desafio.bancoapi.repository.TransacaoRepository;
 import br.com.desafio.bancoapi.service.ContaService;
 import io.restassured.http.ContentType;
 
 public class TransacaoResourceIT extends AbstractResourceTest {
+
+  @Autowired
+  TransacaoRepository transacaoRepository;
 
   @Autowired
   private ContaRepository contaRepository;
@@ -67,16 +72,31 @@ public class TransacaoResourceIT extends AbstractResourceTest {
         .then().statusCode(HttpStatus.OK.value())
         .body("tipoTransacao", equalTo(transacaoExistente.getTipoTransacao().name())).and()
         .body("valor", equalTo(transacaoExistente.getValor().floatValue())).and()
-        .body("contaOrigem.id", equalTo(transacaoExistente.getContaOrigem().getId().intValue())).and()
+        .body("contaOrigem.id", equalTo(transacaoExistente.getContaOrigem().getId().intValue()))
+        .and()
         .body("contaDestino.id", equalTo(transacaoExistente.getContaDestino().getId().intValue()));
   }
+  
+//  @Test
+//  public void deveRetornarRespostaEStatusCorretos_QuandoAtualizarRegistroExistente() {
+//    given().pathParam("id", transacaoExistente.getId()).accept(ContentType.JSON).when().put("/{id}")
+//    .then().statusCode(HttpStatus.OK.value())
+//    .body(arguments, responseAwareMatcher)
+//  }
 
   @Override
   public void prepararDados() {
     String DataHorastr = "01/03/2010 12:30:00";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    LocalDateTime dattaHora = LocalDateTime.parse(DataHorastr, formatter);
-    
+    LocalDateTime dataHora = LocalDateTime.parse(DataHorastr, formatter);
+
+    Transacao transacao = new Transacao();
+    transacao.setDataHora(dataHora);
+    transacao.setTipoTransacao(TipoTransacao.DEPOSITO);
+    transacao.setValor(new BigDecimal(20.00));
+
+    transacaoRepository.save(transacao);
+
     Cliente titular1 = new Cliente();
     titular1.setNome("Titular conta 1");
     titular1.setCpf("93398882005");
@@ -101,7 +121,7 @@ public class TransacaoResourceIT extends AbstractResourceTest {
     conta.setAgencia(agencia);
     contaRepository.save(conta);
 
-    contaService.depositarDinheiro(conta, new BigDecimal(100.0), dattaHora);
+    contaService.depositarDinheiro(conta, new BigDecimal(100.0), dataHora);
 
     Cliente titular2 = new Cliente();
     titular2.setNome("Titular conta 1");
@@ -126,10 +146,11 @@ public class TransacaoResourceIT extends AbstractResourceTest {
     conta2.setTitular(titular2);
     conta2.setAgencia(agencia2);
     contaRepository.save(conta2);
-    
-    transacaoExistente = contaService.transferirDinheiro(conta, conta2, new BigDecimal(50.0), dattaHora);
 
-    setQuantidadeCadastrados((int) contaRepository.count());
+    transacaoExistente =
+        contaService.transferirDinheiro(conta, conta2, new BigDecimal(50.0), dataHora);
+
+    setQuantidadeCadastrados((int) transacaoRepository.count());
 
   }
 

@@ -21,6 +21,7 @@ import io.restassured.response.Response;
 public abstract class AbstractResourceTest {
 
   public static final Long ID_INEXISTENTE = 100l;
+  public static final Long ID_EXISTENTE = 1l;
 
   @LocalServerPort
   private int port;
@@ -82,6 +83,12 @@ public abstract class AbstractResourceTest {
   public void deveRetornarStatus404_QuandoConsultarRegistroInexistente() {
     given().pathParam("id", ID_INEXISTENTE).accept(ContentType.JSON).when().get("/{id}").then()
         .statusCode(HttpStatus.NOT_FOUND.value());
+  }
+  
+  @Test
+  public void deveRetornarStatus204_QuandoRemoverRegistro() {
+    given().pathParam("id", ID_EXISTENTE).accept(ContentType.JSON).when().delete("/{id}").then()
+        .statusCode(HttpStatus.NO_CONTENT.value());
   }
 
   public int getPort() {

@@ -44,6 +44,13 @@ public class BancoResourceIT extends AbstractResourceTest {
         .then().statusCode(HttpStatus.OK.value()).body("nome", equalTo(bancoExistente.getNome()))
         .and().body("codigo", equalTo(bancoExistente.getCodigo()));
   }
+  
+  @Test
+  public void deveRetornarRespostaEStatusCorretos_QuandoAtualizarRegistroExistente() {
+    given().pathParam("id", bancoExistente.getId()).accept(ContentType.JSON).when().put("/{id}")
+    .then().statusCode(HttpStatus.OK.value())
+    .body("", equalTo(null));
+  }
 
   @Override
   public void prepararDados() {
