@@ -2,7 +2,6 @@ CREATE SEQUENCE transacao_seq;
 
 CREATE TABLE TRANSACAO (
 	id BIGINT DEFAULT transacao_seq.nextval PRIMARY KEY, 
-	codigo VARCHAR(255), 
 	data_hora TIMESTAMP, 
 	tipo_transacao VARCHAR, 
 	valor DECIMAL(18,6), 
@@ -12,13 +11,12 @@ CREATE TABLE TRANSACAO (
 	FOREIGN KEY (conta_origem_id) REFERENCES conta(id)
 );
 
-INSERT INTO TRANSACAO (id, codigo, data_hora, tipo_transacao, valor) 
-VALUES(1, '00001', parsedatetime('14-03-2020 14:00:00.000', 'dd-MM-yyyy hh:mm:ss.SS'), 'DEPOSITO', '100.00');
+INSERT INTO TRANSACAO (id, data_hora, tipo_transacao, valor) 
+VALUES(transacao_seq.nextval, parsedatetime('14-03-2020 14:00:00.000', 'dd-MM-yyyy hh:mm:ss.SS'), 'DEPOSITO', '100.00');
 
 CREATE TABLE CONTA_TRANSACOES (
 	conta_id BIGINT NOT NULL, 
 	transacoes_id BIGINT NOT NULL,
-	UNIQUE KEY conta_transacoes_transacoes_id(transacoes_id),
 	FOREIGN KEY (conta_id) REFERENCES conta(id),
 	FOREIGN KEY (transacoes_id) REFERENCES transacao(id)
 );

@@ -12,4 +12,4 @@ CREATE TABLE CONTA (
 	FOREIGN KEY (titular_id) REFERENCES cliente(id)
 );
 
-INSERT INTO CONTA VALUES(1, true, '0', '10000', '100.0', 1, 1);
+INSERT INTO CONTA VALUES(conta_seq.nextval, true, '0', '10000', '100.0', 1, 1);

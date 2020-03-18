@@ -8,5 +8,5 @@ CREATE TABLE AGENCIA(
     FOREIGN KEY (banco_id) REFERENCES banco(id)
 );
 
-INSERT INTO AGENCIA VALUES(1, '001', 'x', 1);
-INSERT INTO AGENCIA VALUES(2, '100', 'x', 2);
+INSERT INTO AGENCIA VALUES(agencia_seq.nextval, '001', 'x', 1);
+INSERT INTO AGENCIA VALUES(agencia_seq.nextval, '100', 'x', 2);

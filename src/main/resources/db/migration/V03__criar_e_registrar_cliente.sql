@@ -6,5 +6,5 @@ CREATE TABLE CLIENTE(
     NOME VARCHAR(255)    
 );
 
-INSERT INTO CLIENTE VALUES(1, '85449914083', 'Michael Douglas');
-INSERT INTO CLIENTE VALUES(2, '80178655031', 'Beatriz Oliveira');
+INSERT INTO CLIENTE VALUES(cliente_seq.nextval, '85449914083', 'Michael Douglas');
+INSERT INTO CLIENTE VALUES(cliente_seq.nextval, '80178655031', 'Beatriz Oliveira');

@@ -6,5 +6,5 @@ CREATE TABLE BANCO (
  	nome VARCHAR(255)
 );
 
-INSERT INTO BANCO VALUES(1, '001', 'Banco do Brasil');
-INSERT INTO BANCO VALUES(2, '104', 'Caixa Econômica');
+INSERT INTO BANCO VALUES(banco_seq.nextval, '001', 'Banco do Brasil');
+INSERT INTO BANCO VALUES(banco_seq.nextval, '104', 'Caixa Econômica');
