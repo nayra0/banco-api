@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.desafio.bancoapi.event.RecursoCriadoEvent;
 import br.com.desafio.bancoapi.model.Conta;
 import br.com.desafio.bancoapi.repository.ContaRepository;
+import br.com.desafio.bancoapi.service.ContaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -34,6 +35,9 @@ public class ContaResource {
 
   @Autowired
   private ContaRepository contaRepository;
+  
+  @Autowired
+  private ContaService contaService;
 
   @Autowired
   private ApplicationEventPublisher publisher;
@@ -71,7 +75,7 @@ public class ContaResource {
   @PutMapping("/{id}")
   @ApiOperation(value = "Atualiza uma conta")
   public ResponseEntity<Conta> atualizar(@PathVariable Long id, @Valid @RequestBody Conta conta) {
-    Conta contaSalva = contaRepository.save(conta);
+    Conta contaSalva = contaService.atualizar(id, conta);
     return ResponseEntity.ok(contaSalva);
   }
 }

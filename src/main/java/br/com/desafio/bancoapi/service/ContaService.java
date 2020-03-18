@@ -3,7 +3,9 @@ package br.com.desafio.bancoapi.service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import br.com.desafio.bancoapi.enums.TipoTransacao;
 import br.com.desafio.bancoapi.model.Conta;
@@ -20,6 +22,19 @@ public class ContaService {
 
   @Autowired
   TransacaoRepository transacaoRepository;
+
+  public Conta atualizar(Long id, Conta conta) {
+    Conta contaSalva = buscarPeloId(id);
+
+    BeanUtils.copyProperties(conta, contaSalva, "id");
+    return contaRepository.save(contaSalva);
+  }
+
+  private Conta buscarPeloId(Long id) {
+    Conta contaSalva =
+        contaRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+    return contaSalva;
+  }
 
   public Transacao transferirDinheiro(Conta contaOrigem, Conta contaDestino, BigDecimal valor,
       LocalDateTime dataHora) {

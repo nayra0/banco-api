@@ -1,10 +1,8 @@
 package br.com.desafio.bancoapi.resource;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -19,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.desafio.bancoapi.event.RecursoCriadoEvent;
 import br.com.desafio.bancoapi.model.Agencia;
 import br.com.desafio.bancoapi.repository.AgenciaRepository;
+import br.com.desafio.bancoapi.service.AgenciaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -34,6 +32,9 @@ public class AgenciaResource {
 
   @Autowired
   private AgenciaRepository agenciaRepository;
+  
+  @Autowired
+  AgenciaService agenciaService;
 
   @Autowired
   private ApplicationEventPublisher publisher;
@@ -72,7 +73,7 @@ public class AgenciaResource {
   @ApiOperation(value = "Atualiza uma agência")
   public ResponseEntity<Agencia> atualizar(@PathVariable Long id,
       @Valid @RequestBody Agencia agencia) {
-    Agencia agenciaSalva = agenciaRepository.save(agencia);
+    Agencia agenciaSalva = agenciaService.atualizar(id, agencia);
     return ResponseEntity.ok(agenciaSalva);
   }
 

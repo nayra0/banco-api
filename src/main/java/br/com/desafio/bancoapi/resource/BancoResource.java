@@ -1,10 +1,8 @@
 package br.com.desafio.bancoapi.resource;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -19,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.desafio.bancoapi.event.RecursoCriadoEvent;
 import br.com.desafio.bancoapi.model.Banco;
 import br.com.desafio.bancoapi.repository.BancoRepository;
+import br.com.desafio.bancoapi.service.BancoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -34,6 +32,9 @@ public class BancoResource {
 
   @Autowired
   private BancoRepository bancoRepository;
+
+  @Autowired
+  private BancoService bancoService;
 
   @Autowired
   private ApplicationEventPublisher publisher;
@@ -71,7 +72,7 @@ public class BancoResource {
   @PutMapping("/{id}")
   @ApiOperation(value = "Atualiza um banco")
   public ResponseEntity<Banco> atualizar(@PathVariable Long id, @Valid @RequestBody Banco banco) {
-    Banco bancoSalvo = bancoRepository.save(banco);
+    Banco bancoSalvo = bancoService.atualizar(id, banco);
     return ResponseEntity.ok(bancoSalvo);
   }
 

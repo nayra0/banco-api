@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.desafio.bancoapi.event.RecursoCriadoEvent;
 import br.com.desafio.bancoapi.model.Transacao;
 import br.com.desafio.bancoapi.repository.TransacaoRepository;
+import br.com.desafio.bancoapi.service.TransacaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -34,6 +35,9 @@ public class TransacaoResource {
 
   @Autowired
   private TransacaoRepository transacaoRepository;
+
+  @Autowired
+  private TransacaoService transacaoService;
 
   @Autowired
   private ApplicationEventPublisher publisher;
@@ -72,7 +76,7 @@ public class TransacaoResource {
   @ApiOperation(value = "Atualiza uma transação")
   public ResponseEntity<Transacao> atualizar(@PathVariable Long id,
       @Valid @RequestBody Transacao transacao) {
-    Transacao transacaoSalva = transacaoRepository.save(transacao);
+    Transacao transacaoSalva = transacaoService.atualizar(id, transacao);
     return ResponseEntity.ok(transacaoSalva);
   }
 }
