@@ -19,7 +19,7 @@ public class DatabaseUtils {
     try (Connection connection = dataSource.getConnection()) {
       this.connection = connection;
 
-      Statement statement = connection.createStatement();
+      Statement statement = this.connection.createStatement();
 
       statement.addBatch("DELETE FROM CONTA_TRANSACOES;");
       statement.addBatch("DELETE FROM TRANSACAO;");

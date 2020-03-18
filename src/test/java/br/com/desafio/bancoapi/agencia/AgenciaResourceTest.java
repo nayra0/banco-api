@@ -1,4 +1,4 @@
-package br.com.desafio.bancoapi.banco;
+package br.com.desafio.bancoapi.agencia;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -22,9 +22,9 @@ import io.restassured.response.Response;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BancoResourceTest {
+public class AgenciaResourceTest {
 
-  private static final Long BANCO_ID_INEXISTENTE = 100l;
+  private static final Long ID_INEXISTENTE = 100l;
 
   @LocalServerPort
   private int port;
@@ -88,8 +88,8 @@ public class BancoResourceTest {
 
   @Test
   public void deveRetornarStatus404_QuandoConsultarBancoInexistente() {
-    given().pathParam("id", BANCO_ID_INEXISTENTE).accept(ContentType.JSON).when().get("/{id}")
-        .then().statusCode(HttpStatus.NOT_FOUND.value());
+    given().pathParam("id", ID_INEXISTENTE).accept(ContentType.JSON).when().get("/{id}").then()
+        .statusCode(HttpStatus.NOT_FOUND.value());
   }
 
   private void prepararDados() {

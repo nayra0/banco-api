@@ -1,0 +1,12 @@
+{
+	"numero": "123",
+	"digito": "x",
+	"saldo": 100.00,
+	"ativa": true,
+	"titular": {
+		"id": "1"
+	},
+	"agencia": {
+		"id": "1"
+	}
+}
