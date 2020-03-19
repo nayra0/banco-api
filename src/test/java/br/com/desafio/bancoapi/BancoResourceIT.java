@@ -2,26 +2,20 @@ package br.com.desafio.bancoapi;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 import br.com.desafio.bancoapi.model.Banco;
 import br.com.desafio.bancoapi.repository.BancoRepository;
 import io.restassured.http.ContentType;
 
+@ActiveProfiles("basic-security")
 public class BancoResourceIT extends AbstractResourceTest {
-
   @Autowired
   private BancoRepository bancoRepository;
 
   private Banco bancoExistente;
-
-  @Override
-  @Before
-  public void setUp() {
-    super.setUp();
-  }
 
   @Override
   public String obterBaseUri() {
@@ -40,16 +34,10 @@ public class BancoResourceIT extends AbstractResourceTest {
 
   @Test
   public void deveRetornarRespostaEStatusCorretos_QuandoConsultarRegistroExistente() {
-    given().pathParam("id", bancoExistente.getId()).accept(ContentType.JSON).when().get("/{id}")
-        .then().statusCode(HttpStatus.OK.value()).body("nome", equalTo(bancoExistente.getNome()))
-        .and().body("codigo", equalTo(bancoExistente.getCodigo()));
-  }
-  
-  @Test
-  public void deveRetornarRespostaEStatusCorretos_QuandoAtualizarRegistroExistente() {
-    given().pathParam("id", bancoExistente.getId()).accept(ContentType.JSON).when().put("/{id}")
-    .then().statusCode(HttpStatus.OK.value())
-    .body("", equalTo(null));
+    given().header("Authorization", "Bearer " + getAccessToken())
+        .pathParam("id", bancoExistente.getId()).accept(ContentType.JSON).when().get("/{id}").then()
+        .statusCode(HttpStatus.OK.value()).body("nome", equalTo(bancoExistente.getNome())).and()
+        .body("codigo", equalTo(bancoExistente.getCodigo()));
   }
 
   @Override

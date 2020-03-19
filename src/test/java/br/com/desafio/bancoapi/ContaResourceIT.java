@@ -3,7 +3,6 @@ package br.com.desafio.bancoapi;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import java.math.BigDecimal;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,12 +33,6 @@ public class ContaResourceIT extends AbstractResourceTest {
   private Conta contaExistente;
 
   @Override
-  @Before
-  public void setUp() {
-    super.setUp();
-  }
-
-  @Override
   public String obterBaseUri() {
     return "/contas";
   }
@@ -56,9 +49,9 @@ public class ContaResourceIT extends AbstractResourceTest {
 
   @Test
   public void deveRetornarRespostaEStatusCorretos_QuandoConsultarRegistroExistente() {
-    given().pathParam("id", contaExistente.getId()).accept(ContentType.JSON).when().get("/{id}")
-        .then().statusCode(HttpStatus.OK.value())
-        .body("numero", equalTo(contaExistente.getNumero())).and()
+    given().header("Authorization", "Bearer " + getAccessToken())
+        .pathParam("id", contaExistente.getId()).accept(ContentType.JSON).when().get("/{id}").then()
+        .statusCode(HttpStatus.OK.value()).body("numero", equalTo(contaExistente.getNumero())).and()
         .body("digito", equalTo(contaExistente.getDigito())).and()
         .body("saldo", equalTo(contaExistente.getSaldo().floatValue())).and()
         .body("ativa", equalTo(contaExistente.isAtiva())).and()

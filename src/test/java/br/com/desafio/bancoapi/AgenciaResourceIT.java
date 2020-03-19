@@ -2,7 +2,6 @@ package br.com.desafio.bancoapi;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +22,6 @@ public class AgenciaResourceIT extends AbstractResourceTest {
   private Agencia agenciaExistente;
 
   @Override
-  @Before
-  public void setUp() {
-    super.setUp();
-  }
-
-  @Override
   public String obterBaseUri() {
     return "/agencias";
   }
@@ -46,7 +39,8 @@ public class AgenciaResourceIT extends AbstractResourceTest {
 
   @Test
   public void deveRetornarRespostaEStatusCorretos_QuandoConsultarRegistroExistente() {
-    given().pathParam("id", agenciaExistente.getId()).accept(ContentType.JSON).when().get("/{id}")
+    given().header("Authorization", "Bearer " + getAccessToken())
+        .pathParam("id", agenciaExistente.getId()).accept(ContentType.JSON).when().get("/{id}")
         .then().statusCode(HttpStatus.OK.value())
         .body("digito", equalTo(agenciaExistente.getDigito())).and()
         .body("codigo", equalTo(agenciaExistente.getCodigo()));

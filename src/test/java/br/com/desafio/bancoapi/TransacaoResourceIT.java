@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.equalTo;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,12 +45,6 @@ public class TransacaoResourceIT extends AbstractResourceTest {
   private Transacao transacaoExistente;
 
   @Override
-  @Before
-  public void setUp() {
-    super.setUp();
-  }
-
-  @Override
   public String obterBaseUri() {
     return "/transacoes";
   }
@@ -68,7 +61,8 @@ public class TransacaoResourceIT extends AbstractResourceTest {
 
   @Test
   public void deveRetornarRespostaEStatusCorretos_QuandoConsultarRegistroExistente() {
-    given().pathParam("id", transacaoExistente.getId()).accept(ContentType.JSON).when().get("/{id}")
+    given().header("Authorization", "Bearer " + getAccessToken())
+        .pathParam("id", transacaoExistente.getId()).accept(ContentType.JSON).when().get("/{id}")
         .then().statusCode(HttpStatus.OK.value())
         .body("tipoTransacao", equalTo(transacaoExistente.getTipoTransacao().name())).and()
         .body("valor", equalTo(transacaoExistente.getValor().floatValue())).and()
@@ -76,13 +70,14 @@ public class TransacaoResourceIT extends AbstractResourceTest {
         .and()
         .body("contaDestino.id", equalTo(transacaoExistente.getContaDestino().getId().intValue()));
   }
-  
-//  @Test
-//  public void deveRetornarRespostaEStatusCorretos_QuandoAtualizarRegistroExistente() {
-//    given().pathParam("id", transacaoExistente.getId()).accept(ContentType.JSON).when().put("/{id}")
-//    .then().statusCode(HttpStatus.OK.value())
-//    .body(arguments, responseAwareMatcher)
-//  }
+
+  // @Test
+  // public void deveRetornarRespostaEStatusCorretos_QuandoAtualizarRegistroExistente() {
+  // given().pathParam("id",
+  // transacaoExistente.getId()).accept(ContentType.JSON).when().put("/{id}")
+  // .then().statusCode(HttpStatus.OK.value())
+  // .body(arguments, responseAwareMatcher)
+  // }
 
   @Override
   public void prepararDados() {
