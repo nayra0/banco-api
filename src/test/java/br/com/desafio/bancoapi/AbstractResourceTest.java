@@ -23,7 +23,6 @@ import io.restassured.response.Response;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("basic-security")
 public abstract class AbstractResourceTest {
 
   public static final Long ID_INEXISTENTE = 100l;
