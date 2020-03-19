@@ -141,7 +141,7 @@ public class TransacaoResource {
   }
 
 
-  @PostMapping("/contas/{idConta}")
+  @PostMapping("/contas/{idConta}/extrato")
   @ApiOperation(value = "Exibir transações da conta")
   public ResponseEntity<List<Transacao>> extrato(@PathVariable Long idConta) {
     Conta conta = contaService.buscarPeloId(idConta);
