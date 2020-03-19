@@ -19,6 +19,7 @@ client: cliente
 password: cliente
 
 **Exemplo para obter token:**
+
 curl --location --request POST 'localhost:8080/oauth/token' \
 --header 'Authorization: Basic Y2xpZW50ZTpjbGllbnRl' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
