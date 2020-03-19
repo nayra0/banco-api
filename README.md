@@ -10,11 +10,13 @@ Executar a suite de testes: BancoApiTestSuite
 http://localhost:8080/swagger-ui.html
 
 4. **OAuth 2**
+
 Autenticação:
 Usuário: admin
 Senha: admin
 
 **Cliente rest:**
+
 client: cliente
 password: cliente
 
