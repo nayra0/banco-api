@@ -4,7 +4,7 @@
 ./mvnw spring-boot:run
 
 2. **Testes**
-./mvnw test
+Executar a suite de testes: BancoApiTestSuite
 
 3. **Documentação dos métodos disponiveis:**
 http://localhost:8080/swagger-ui.html
