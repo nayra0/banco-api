@@ -50,7 +50,8 @@ public class BancoApiExceptionHandler extends ResponseEntityExceptionHandler {
   public ResponseEntity<Object> handleEmptyResultDataAccessException(
       EmptyResultDataAccessException ex, WebRequest request) {
     String mensagemUsuario =
-        messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());
+        messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale())
+            + ". " + ex.getMessage();
     String mensagemDesenvolvedor = ex.toString();
     List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 

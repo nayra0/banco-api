@@ -20,9 +20,9 @@ public class BancoService {
     return bancoRepository.save(bancoSalvo);
   }
 
-  private Banco buscarPeloId(Long id) {
+  public Banco buscarPeloId(Long id) {
     Banco bancoSalvo =
-        bancoRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        bancoRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException("Banco com id: " + id + " não encontrado", 1));
     return bancoSalvo;
   }
 

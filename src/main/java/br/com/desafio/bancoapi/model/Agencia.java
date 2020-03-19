@@ -8,7 +8,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import br.com.desafio.bancoapi.interfaces.Entidade;
 
 @Entity

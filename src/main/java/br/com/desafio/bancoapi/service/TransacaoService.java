@@ -20,9 +20,9 @@ public class TransacaoService {
     return transacaoRepository.save(transacaoSalva);
   }
 
-  private Transacao buscarPeloId(Long id) {
+  public Transacao buscarPeloId(Long id) {
     Transacao transacaoSalva =
-        transacaoRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        transacaoRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException("Transação com id: " + id + " não encontrada", 1));
     return transacaoSalva;
   }
 

@@ -30,9 +30,9 @@ public class ContaService {
     return contaRepository.save(contaSalva);
   }
 
-  private Conta buscarPeloId(Long id) {
+  public Conta buscarPeloId(Long id) {
     Conta contaSalva =
-        contaRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        contaRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException("Conta com id: " + id + " não encontrada", 1));
     return contaSalva;
   }
 
@@ -60,12 +60,14 @@ public class ContaService {
         contaOrigem.setTransacoes(new ArrayList<>());
       }
       contaOrigem.getTransacoes().add(transacaoTranferencia);
+      contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valor));
       contaRepository.save(contaOrigem);
 
       if (contaDestino.getTransacoes() == null) {
         contaDestino.setTransacoes(new ArrayList<>());
       }
       contaDestino.getTransacoes().add(transacaoTranferencia);
+      contaDestino.setSaldo(contaDestino.getSaldo().add(valor));
       contaRepository.save(contaDestino);
 
       return transacaoTranferencia;

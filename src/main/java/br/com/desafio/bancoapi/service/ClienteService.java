@@ -21,9 +21,9 @@ public class ClienteService {
     return clienteRepository.save(ClienteSalvo);
   }
 
-  private Cliente buscarPeloId(Long id) {
+  public Cliente buscarPeloId(Long id) {
     Cliente ClienteSalvo =
-        clienteRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        clienteRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException("Cliente com id: " + id + " não encontrado", 1));
     return ClienteSalvo;
   }
 

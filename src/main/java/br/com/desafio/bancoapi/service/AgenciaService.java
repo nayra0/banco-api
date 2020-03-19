@@ -20,9 +20,9 @@ public class AgenciaService {
     return AgenciaRepository.save(agenciaSalva);
   }
 
-  private Agencia buscarPeloId(Long id) {
+   Agencia buscarPeloId(Long id) {
     Agencia agenciaSalva =
-        AgenciaRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        AgenciaRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException("Agência com id: " + id + " não encontrada", 1));
     return agenciaSalva;
   }
 
